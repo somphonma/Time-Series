@@ -3,13 +3,11 @@ import math
 from Time_Series_Forecasting import *
 def main(masterfile_location,datafile_location):
 
-    # instruction_file = r'C:\Users\mankk\PycharmProjects\data_science\venv\master_file.xlsx'
-    data_file = r'C:\Users\mankk\PycharmProjects\data_science\venv\Data_testing.csv'
     df = pd.read_excel(masterfile_location)
     ds = pd.read_csv(datafile_location)
     # iteration = loop value
     frame = pd.DataFrame()
-    for iteration_value in range(42, len(df)):
+    for iteration_value in range(0, len(df)):
         print(df['MAT'][iteration_value])
         lag = np.nan
         leading_name = ''
@@ -42,20 +40,18 @@ def main(masterfile_location,datafile_location):
         output_period = df['train_period'][iteration_value]
         print(iteration_value)
         if technic == 'arimax':
-            a = 10
-            print('t')
-            # a = getattr(class_forecast, technic)(hi=high, lo=low, p=p, q=q, P=P, Q=Q, leading_name=leading_name, lag=lag, trend_require=trend_require
-            #                                     , percentchange_require=growth, input_period='month', train_period='month', output_period='month', pct_require=True)
+            a = getattr(class_forecast, technic)(hi=high, lo=low, p=p, q=q, P=P, Q=Q, leading_name=leading_name, lag=lag, trend_require=trend_require
+                                                 , percentchange_require=growth, input_period='month', train_period='month', output_period='month', pct_require=True)
         elif technic == 'arima':
             a = getattr(class_forecast, technic)(hi=high, lo=low, p=p, q=q, P=P, Q=Q, input_period='month', train_period='month', output_period='month', pct_require=True)
         else:
             a = getattr(class_forecast, technic)(hi=high, lo=low, input_period=input_period, train_period=train_period, output_period=output_period, pct_require=True)
         if a!=10:
             frame = frame.append(a)
-        break
 
 
 if __name__ == "__main__":
-    a = r'C:\Users\mankk\PycharmProjects\data_science\venv\master_file.xlsx'
-    b = r'C:\Users\mankk\PycharmProjects\data_science\venv\Data_testing.csv'
-    main(a,b)
+
+    master = 'master_file.xlsx'
+    data = 'Data_testing.csv'
+    main(master, data)

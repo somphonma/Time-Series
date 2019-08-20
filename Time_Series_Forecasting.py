@@ -635,7 +635,7 @@ class Forecasting:
     def arimax(self, hi, lo, p, q, P, Q, leading_name, lag, trend_require, percentchange_require, input_period
                , train_period, output_period, pct_require):
 
-        f_data = pd.read_csv(r'C:\Users\mankk\PycharmProjects\data_science\venv\leading_arimax.csv', index_col=0)
+        f_data = pd.read_csv('leading_arimax.csv', index_col=0)
         input_time = self.extract_time_type(input_period)
         train_time = self.extract_time_type(train_period)
         # extract column from data using column_no
@@ -729,11 +729,6 @@ class Forecasting:
         # store future_forcast
         future_forecast = pd.DataFrame(future_forecast, index=future_date[1:],
                                        columns=[self.data.columns[self.column_no - 1]])
-        # train = train.append(future_forecast).reset_index()
-
-        # train = self.percent_change(train).reset_index()
-        # train = train.rename(columns={'index': 'Date'})
-        # train = train[len(train)-self.no_of_forecast_month:len(train)].reset_index(drop=True)
         train = future_forecast.copy().reset_index()
         train = train.rename(columns={'index': 'Date'})
         time_add = train_period + 's'
